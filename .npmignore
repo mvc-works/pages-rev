@@ -1,0 +1,6 @@
+
+src/
+example/
+dist/
+gulpfile.coffee
+test.coffee

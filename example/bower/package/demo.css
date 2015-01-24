@@ -1,0 +1,6 @@
+
+@import(part.css);
+
+.demo {
+  background-image: url(../images/a.jpg);
+}
