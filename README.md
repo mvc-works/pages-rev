@@ -14,9 +14,8 @@ npm i --save-dev pages-rev
 rev = require 'pages-rev'
 
 rev.run
-  base: __dirname
-  from: 'example/'
-  dest: 'dist/'
+  base: "#{__dirname}/example/"
+  dest: "#{__dirname}/dist/"
   ignoreDirs: ['node_modules']
   cdn: null
   entries: ['index.html', 'ejs/index/ejs']
