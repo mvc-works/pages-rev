@@ -1,6 +1,10 @@
 
-@import(styles/part.css);
+@import url(styles/part.css);
 
 .demo {
   background-image: url(../images/a.jpg);
+}
+
+p {
+  font-family: myFirstFont;
 }

@@ -1,8 +1,10 @@
 
 path = require 'path'
+_ = require 'lodash'
+
 scanner = require './scanner'
 dir = require './util/dir'
-_ = require 'lodash'
+writer = require './writer'
 
 exports.run = (options) ->
   files = dir.recursiveRead options.base, options
@@ -13,4 +15,4 @@ exports.run = (options) ->
     extname = path.extname entry
   entries.forEach (entry) ->
     scanner.scan entry, files, registry, options
-  console.log registry
+  writer.write registry, options

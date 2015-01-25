@@ -17,9 +17,9 @@ scan = (filepath, files, registry, options) ->
     else finalPath = rename.addMd5 relativePath, md5
 
     registry[filepath] =
-      content: 'content'
+      content: content
       encoding: 'binary'
-      finalPath: finalPath
+      finalPath: "/#{finalPath}"
     return registry[filepath]
 
   state =
@@ -58,6 +58,7 @@ scan = (filepath, files, registry, options) ->
             state.name = 'normal'
             state.newFile += decideBuffer state.buffer
             state.buffer = ''
+            state.newFile += '\''
           when '\\'
             state.buffer += char
             state.name = 'escapeSingle'
@@ -71,6 +72,7 @@ scan = (filepath, files, registry, options) ->
             state.name = 'normal'
             state.newFile += decideBuffer state.buffer
             state.buffer = ''
+            state.newFile += '"'
           when '\\'
             state.buffer += char
             state.name = 'escapeDouble'
@@ -111,9 +113,9 @@ scan = (filepath, files, registry, options) ->
   then finalPath = relativePath
   else finalPath = rename.addMd5 relativePath, md5
   registry[filepath] =
-    content: 'state.newFile'
+    content: state.newFile
     encoding: 'utf8'
-    finalPath: finalPath
+    finalPath: "/#{finalPath}"
 
   return registry[filepath]
 
