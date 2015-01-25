@@ -6,15 +6,20 @@ types = require './types'
 hash = require './util/hash'
 rename = require './util/rename'
 
-scan = (filepath, base, files, registry) ->
+scan = (filepath, files, registry, options) ->
+  {base, templateExtnames} = options
   unless (path.extname filepath) in types.scripts
     content = fs.readFileSync filepath
     md5 = hash.md5 content
     relativePath = path.relative base, filepath
+    if (path.extname filepath) in templateExtnames
+    then finalPath = relativePath
+    else finalPath = rename.addMd5 relativePath, md5
+
     registry[filepath] =
       content: 'content'
       encoding: 'binary'
-      finalPath: rename.addMd5 relativePath, md5
+      finalPath: finalPath
     return registry[filepath]
 
   state =
@@ -23,19 +28,19 @@ scan = (filepath, base, files, registry) ->
     newFile: ''
 
   decideBuffer = (buffer) ->
-    if buffer[0] is [0]
+    if buffer[0] is '/'
       potentialFile = path.join base, buffer
     else
       filedir = path.dirname filepath
       potentialFile = path.join filedir, buffer
+    # console.log '---> may be file:', buffer, potentialFile
     if potentialFile in files
-      console.log '--> found file, push stack'
-      res = scan potentialFile, base, files, registry
-      console.log '<-- pop'
+      # console.log '    yes'
+      res = scan potentialFile, files, registry, options
       return res.finalPath
     else
+      # console.log '    no'
       return buffer
-
 
   content = fs.readFileSync filepath, 'utf8'
   content.split('').forEach (char) ->
@@ -102,10 +107,13 @@ scan = (filepath, base, files, registry) ->
 
   relativePath = path.relative base, filepath
   md5 = hash.md5 state.newFile
+  if (path.extname relativePath) in templateExtnames
+  then finalPath = relativePath
+  else finalPath = rename.addMd5 relativePath, md5
   registry[filepath] =
     content: 'state.newFile'
     encoding: 'utf8'
-    finalPath: rename.addMd5 relativePath, md5
+    finalPath: finalPath
 
   return registry[filepath]
 
