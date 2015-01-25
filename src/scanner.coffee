@@ -24,7 +24,8 @@ scan = (filepath, files, registry, options) ->
     registry[filepath] =
       content: content
       encoding: 'binary'
-      finalPath: options.prefix + finalPath
+      finalPath: finalPath
+      resourcePath: options.prefix + finalPath
     return registry[filepath]
 
   state =
@@ -42,7 +43,7 @@ scan = (filepath, files, registry, options) ->
     if potentialFile in files
       # console.log '    yes'
       res = scan potentialFile, files, registry, options
-      return res.finalPath
+      return res.resourcePath
     else
       # console.log '    no'
       return buffer
@@ -116,7 +117,8 @@ scan = (filepath, files, registry, options) ->
   registry[filepath] =
     content: state.newFile
     encoding: 'utf8'
-    finalPath: options.prefix + finalPath
+    finalPath: finalPath
+    resourcePath: options.prefix + finalPath
 
   return registry[filepath]
 

@@ -1,6 +1,6 @@
 {
   "name": "pages-rev",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Simple web resources revision tool",
   "main": "lib/index.js",
   "directories": {
