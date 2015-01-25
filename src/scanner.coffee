@@ -9,6 +9,9 @@ rename = require './util/rename'
 scan = (filepath, files, registry, options) ->
   {base, templateExtnames} = options
   unless (path.extname filepath) in types.scripts
+    # reuse existing files
+    return registry[filepath] if registry[filepath]?
+
     content = fs.readFileSync filepath
     md5 = hash.md5 content
     relativePath = path.relative base, filepath
@@ -19,7 +22,7 @@ scan = (filepath, files, registry, options) ->
     registry[filepath] =
       content: content
       encoding: 'binary'
-      finalPath: "/#{finalPath}"
+      finalPath: options.prefix + finalPath
     return registry[filepath]
 
   state =
@@ -115,7 +118,7 @@ scan = (filepath, files, registry, options) ->
   registry[filepath] =
     content: state.newFile
     encoding: 'utf8'
-    finalPath: "/#{finalPath}"
+    finalPath: options.prefix + finalPath
 
   return registry[filepath]
 

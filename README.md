@@ -17,8 +17,8 @@ rev.run
   base: "#{__dirname}/example/"
   dest: "#{__dirname}/dist/"
   ignoreDirs: ['node_modules']
-  cdn: null
   entries: ['index.html', 'ejs/index/ejs']
+  prefix: '' # empty, '/' or cdn url
 ```
 
 ### License
