@@ -25,11 +25,12 @@ rev.run
 
 * `base`(required)
 
-Base path, usually where `index.html` is, or the directory corresponds the domain
+Base path, usually where `index.html` is, or the directory corresponds the domain.
+Uses absolute path.
 
 * `dest`(required)
 
-The directory to write revisioned files. Relative to base.
+The directory to write revisioned files. Uses absolute path.
 
 * `ignoreDirs`
 
