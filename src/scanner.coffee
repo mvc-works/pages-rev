@@ -85,10 +85,6 @@ scan = (filepath, files, registry, options) ->
       when 'escapeDouble'
         state.buffer += char
         state.name = 'doubleQuote'
-      when 'regexp'
-        state.newFile += char
-      when 'escapeRegexp'
-        state.newFile += char
       when 'parenthese'
         switch char
           when ')'

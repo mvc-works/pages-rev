@@ -39,6 +39,7 @@ Folders not needed to scan. Without `/`s.
 * `entries`(required)
 
 Files to start. Usually `index.html` or templates that can be viewed with URLs.
+Only files with extnames as `.html`, `.css` and the extnames of entries are scanned.
 
 * `prefix`(required)
 
