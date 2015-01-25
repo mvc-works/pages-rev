@@ -1,6 +1,7 @@
 
 fs = require 'fs'
 path = require 'path'
+_ = require 'lodash'
 
 types = require './types'
 hash = require './util/hash'
@@ -8,7 +9,8 @@ rename = require './util/rename'
 
 scan = (filepath, files, registry, options) ->
   {base, templateExtnames} = options
-  unless (path.extname filepath) in types.scripts
+  scriptTypes = _.union types.scripts, templateExtnames
+  unless (path.extname filepath) in scriptTypes
     # reuse existing files
     return registry[filepath] if registry[filepath]?
 

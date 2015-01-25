@@ -18,8 +18,39 @@ rev.run
   dest: "#{__dirname}/dist/"
   ignoreDirs: ['node_modules']
   entries: ['index.html', 'ejs/index/ejs']
-  prefix: '' # empty, '/' or cdn url
+  prefix: '/' # or cdn url
 ```
+
+### Options
+
+* `base`(required)
+
+Base path, usually where `index.html` is, or the directory corresponds the domain
+
+* `dest`(required)
+
+The directory to write revisioned files. Relative to base.
+
+* `ignoreDirs`
+
+Folders not needed to scan. Without `/`s.
+
+* `entries`(required)
+
+Files to start. Usually `index.html` or templates that can be viewed with URLs.
+
+* `prefix`(required)
+
+URL prefix to the domain. May be `/`, `/x/y` or CDN urls. Ends with '/'.
+
+### Assumptions
+
+This plugin has these assumptions:
+
+* Resources are wrapped inside: `""`, `''`, or `()`
+* Resource names do not contains `\`
+* Path `base` corresponds to the domain(or directory of `index.html`)
+* Files with same extname as files in `entries` are not renamed
 
 ### License
 

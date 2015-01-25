@@ -6,4 +6,4 @@ rev.run
   ignoreDirs: ['node_modules']
   entries: ['index.html', 'ejs/home.ejs']
   dest: '../dist/'
-  prefix: ''
+  prefix: '/'
